@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="3"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    findUnusedBaselineEntry="true"
+    findUnusedCode="true"
+>
+    <projectFiles>
+        <!-- Focus on YOUR plugin code -->
+        <file name="wp-ai-workflows.php" />
+        <directory name="includes" />
+        <directory name="admin" />
+        
+    </projectFiles>
+
+    <!-- Keep your WordPress plugin -->
+    <plugins>
+        <pluginClass class="PsalmWordPress\Plugin"/>
+    </plugins>
+
+    <!-- Security-focused issue handlers -->
+    <issueHandlers>
+        <!-- WordPress globals and functions are OK -->
+        <UndefinedGlobalVariable errorLevel="suppress" />
+        <UndefinedConstant errorLevel="suppress" />
+        <UndefinedFunction errorLevel="suppress" />
+        <MissingReturnType errorLevel="info" />
+        <MixedAssignment errorLevel="info" />
+        
+        <!-- SECURITY ISSUES - Make these ERRORS -->
+        <TaintedSql errorLevel="error" />
+        <TaintedHtml errorLevel="error" />
+        <TaintedShell errorLevel="error" />
+        <TaintedInput errorLevel="error" />
+        <TaintedCookie errorLevel="error" />
+        <TaintedHeader errorLevel="error" />
+        <TaintedInclude errorLevel="error" />
+        <TaintedSSRF errorLevel="error" />
+        <TaintedUnserialize errorLevel="error" />
+        
+        <!-- WordPress-specific security -->
+        <TaintedTextWithQuotes errorLevel="error" />
+        <RiskyTruthyFalsyComparison errorLevel="error" />
+    </issueHandlers>
+
+    <!-- WordPress globals -->
+    <globals>
+        <var name="$wpdb" type="wpdb" />
+        <var name="$wp_query" type="WP_Query" />
+        <var name="$post" type="WP_Post" />
+        <var name="$current_user" type="WP_User" />
+    </globals>
+</psalm>

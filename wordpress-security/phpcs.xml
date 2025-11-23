@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruleset name="WP AI Workflows Security Standards">
+    <description>Security-focused coding standards for WordPress plugin</description>
+
+    <!-- Focus on YOUR code -->
+    <file>wp-ai-workflows.php</file>
+    <file>includes</file>
+    <file>admin</file>
+    
+    <!-- Exclude third-party code -->
+    <exclude-pattern>vendor/</exclude-pattern>
+    <exclude-pattern>node_modules/</exclude-pattern>
+    <exclude-pattern>build/</exclude-pattern>
+    <exclude-pattern>src/</exclude-pattern>
+
+    <!-- Use WordPress-Extra (includes security rules) -->
+    <rule ref="WordPress-Extra">
+        <!-- Allow short array syntax -->
+        <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+        <!-- Allow some WordPress-specific patterns -->
+        <exclude name="WordPress.Files.FileName"/>
+        <exclude name="WordPress.NamingConventions.ValidVariableName"/>
+    </rule>
+
+    <!-- SECURITY-CRITICAL rules that exist -->
+    <rule ref="WordPress.Security.EscapeOutput"/>
+    <rule ref="WordPress.Security.NonceVerification"/>
+    <rule ref="WordPress.Security.ValidatedSanitizedInput"/>
+    <rule ref="WordPress.Security.PluginMenuSlug"/>
+    <rule ref="WordPress.Security.SafeRedirect"/>
+
+    <!-- Database security -->
+    <rule ref="WordPress.DB.PreparedSQL"/>
+    <rule ref="WordPress.DB.DirectDatabaseQuery"/>
+    
+    <!-- Prevent dangerous functions -->
+    <rule ref="WordPress.PHP.DiscouragedPHPFunctions"/>
+    <rule ref="WordPress.WP.AlternativeFunctions"/>
+</ruleset>
